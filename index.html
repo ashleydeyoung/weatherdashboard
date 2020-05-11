@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather Application</title>
+
+  <!-- link to the jQuery Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- link to Bootstrap-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+  <!-- link to our external stylesheet-->
+  <!-- <link rel="stylesheet" href="style.css"> -->
+
+</head>
+<body>
+
+  <div class="jumbotron">
+    <h1 class="text-center">Weather Application</h1>
+    <h3 class="text-center">Find weather near you!</h3>
+  </div>
+
+  <div class="container">
+
+    <div class="row">
+
+      <!-- Calculator Card -->
+      <div class="col-lg-4">
+        <div class="card">
+          <h3 class="card-header">Search By City</h3>
+          <form>
+            <div class="form-row align-items-center m-2">
+              <div class="col-auto">
+                <label class="sr-only" for="inlineFormInput">City</label>
+                <input type="text" class="form-control mb-2" id="inlineFormInput" placeholder="Jane Doe">
+              </div>
+              <div class="col-auto">
+                <button type="submit" class="btn btn-primary mb-2">Submit</button>
+              </div>
+            </div>
+          </form>
+
+          
+        </div>
+      </div>
+
+      <!-- Result Card -->
+      <div class="col-lg-6">
+        <div class="card">
+          <h3 class="card-header">Result</h3>
+          <div class="card-body">
+            <h1 id="first-number"></h1>
+            <h1 id="operator"></h1>
+            <h1 id="second-number"></h1>
+            <hr>
+            <h1 id="result"></h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+</script>
+
+</body>
+</html>
