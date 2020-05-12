@@ -6,6 +6,46 @@ var searchArray = [];
 
 init();
 
+function displayWeatherInfo() {
+
+  var search = searchInput.val().trim()
+
+  console.log(search)
+  var queryURL =  "https://api.openweathermap.org/data/2.5/weather?q=" + search  + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
+
+
+  // Creates AJAX call for the specific movie button being clicked
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
+   console.log(response)
+    // Creates a div to hold the movie
+    var newDiv = $("<div>")
+    newDiv.addClass("search-div")
+    newDiv.prependTo("#result-page")
+
+    // Retrieves the Rating Data
+    // Creates an element to have the rating displayed
+    // Displays the rating
+    $("<p>").text(response.name).appendTo(newDiv)
+    // Retrieves the release year
+    // Creates an element to hold the release year
+    // Displays the release year
+    $("<p>").text(response.main.humidity).appendTo(newDiv)
+    // Retrieves the plot
+    // Creates an element to hold the plot
+    // Appends the plot
+    $("<p>").text(response.main.feels_like).appendTo(newDiv)
+    // Creates an element to hold the image
+    // Appends the image
+    // $("<img>").attr("src", response.Poster).appendTo(newDiv)
+    
+  });
+
+}
+// displayWeatherInfo();
+
 function renderSearch() {
   // Clear todoList element and update todoCountSpan
   searchList.empty();
@@ -46,7 +86,7 @@ function init() {
   if (storedSearch !== null) {
     searchArray = storedSearch;
   }
-  console.log(searchArray)
+  // console.log(searchArray)
   // Render search to the DOM
   renderSearch();
 }
@@ -57,8 +97,9 @@ function storeSearch() {
 }
 
 // When form is submitted...
-$(submitBtn).click( function(event) {
+$("#search-form").on("submit", function (event) {
   event.preventDefault();
+  $(".search-div").empty();
 
   var searchText = searchInput.val().trim();
   // console.log(searchText);
@@ -71,10 +112,12 @@ $(submitBtn).click( function(event) {
   // Add new Text to search array, clear the input
   searchArray.push(searchText);
   searchInput.value = "";
+  
 
   // Store updated search in localStorage, re-render the list
   storeSearch();
   renderSearch();
+  displayWeatherInfo();
 });
-
-// Create function for when city is clicked
+// $(document).on("click", ".search", displayWeatherInfo);
+// // Create function for when city is clicked
