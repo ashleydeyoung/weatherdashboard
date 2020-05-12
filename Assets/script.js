@@ -25,21 +25,15 @@ function displayWeatherInfo() {
     newDiv.addClass("search-div")
     newDiv.prependTo("#result-page")
 
-    // Retrieves the Rating Data
-    // Creates an element to have the rating displayed
-    // Displays the rating
-    $("<p>").text(response.name).appendTo(newDiv)
-    // Retrieves the release year
-    // Creates an element to hold the release year
-    // Displays the release year
-    $("<p>").text(response.main.humidity).appendTo(newDiv)
-    // Retrieves the plot
-    // Creates an element to hold the plot
-    // Appends the plot
-    $("<p>").text(response.main.feels_like).appendTo(newDiv)
-    // Creates an element to hold the image
-    // Appends the image
-    // $("<img>").attr("src", response.Poster).appendTo(newDiv)
+    $("<h1>").addClass("current-city").text(response.name).appendTo(newDiv)
+    $("<h2>").text("Current Temp: " + Math.round(response.main.temp) + " degrees").appendTo(newDiv)
+ 
+    $("<p>").text("Humidity: " + response.main.humidity).appendTo(newDiv)
+  
+    $("<p>").text("Feels like: " + Math.round(response.main.feels_like) + " degrees").appendTo(newDiv)
+   
+    $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png").appendTo(".current-city")
+    
     
   });
 
