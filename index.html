@@ -1,63 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Weather Dashboard</title>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Weather Dashboard</title>
 
-  <!-- link to the jQuery Library -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- link to the jQuery Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-  <!-- link to Bootstrap-->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- link to Bootstrap-->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
 
-  <!-- link to  external stylesheet-->
-  <link rel="stylesheet" href="./Assets/style.css">
+    <!-- link to  external stylesheet-->
+    <link rel="stylesheet" href="./Assets/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1 class="text-center">Weather Dashboard</h1>
+      <h2 class="text-center">
+        Search a city near you to scope out the weather!
+      </h2>
+    </header>
 
-</head>
-<body>
-  <header>
-    <h1 class="text-center">Weather Dashboard</h1>
-    <h2 class="text-center">Search a city near you to scope out the weather!</h2>
-  </header>
-  
-  <div class="container">
-
-    <div class="row">
-
-      <!-- Search Card -->
-      <div class="col-lg-4">
-        <div class="card">
-          <h3 class="card-header">Search By City</h3>
-          <form id = "search-form"> 
-            <div class="form-row align-items-center m-2">
-              <div class="col-auto">
-                <label class="sr-only" for="inlineFormInput">City</label>
-                <input type="text" class="form-control mb-2" id="searchtext" placeholder="Search City">
+    <div class="container">
+      <div class="row">
+        <!-- Search Card -->
+        <div class="col-lg-4">
+          <div class="card">
+            <h3 class="card-header">Search By City</h3>
+            <form id="search-form">
+              <div class="form-row align-items-center m-2">
+                <div class="col-auto">
+                  <label class="sr-only" for="inlineFormInput">City</label>
+                  <input
+                    type="text"
+                    class="form-control mb-2"
+                    id="searchtext"
+                    placeholder="Search City"
+                  />
+                </div>
+                <div class="col-auto">
+                  <button
+                    id="submit-btn"
+                    type="submit"
+                    class="btn btn-primary mb-2"
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
-              <div class="col-auto">
-                <button id= "submit-btn" type="submit" class="btn btn-primary mb-2">Submit</button>
-              </div>
-            </div>
-          </form>
-          <ul id="search-list"></ul>
-          
+            </form>
+            <div id="search-list"></div>
+          </div>
         </div>
-      </div>
 
-      <!-- Result Card -->
-      <div class="col-lg-8">
-        <div class="card">
-          <h3 class="card-header">City's Weather</h3>
-          <div class="card-body">
-            <h1></h1>
-        
+        <!-- Result Card -->
+        <div class="col-lg-8">
+          <div class="card">
+            <span class="border">
+              <h3 class="card-header">City's Weather</h3>
+              <div class="card-body">
+                <h1></h1>
+              </div>
+            </span>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script src = "./Assets/script.js"></script>
-
-</body>
+    <script src="./Assets/script.js"></script>
+  </body>
 </html>
