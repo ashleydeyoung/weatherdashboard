@@ -8,7 +8,7 @@ init();
 
 function displayWeatherInfo() {
 
-  var search = searchInput.val().trim()
+  var search = searchArray[searchArray.length -1]
 
   console.log(search)
   var queryURL =  "https://api.openweathermap.org/data/2.5/weather?q=" + search  + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
@@ -37,7 +37,7 @@ function displayWeatherInfo() {
     
   });
 
-  var search = searchInput.val().trim()
+  var search = searchArray[searchArray.length -1]
   var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + search + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
   $.ajax({
     url: queryURL,
@@ -84,7 +84,7 @@ function renderSearch() {
     newSearchDiv.addClass("search").attr("data-name", searchArray[i]);
     newSearchDiv.html(searchArray[i])
     // It then adds this new div to the search div.
-    searchList.append(newSearchDiv);
+    searchList.prepend(newSearchDiv);
   }
   
  
@@ -111,7 +111,9 @@ function init() {
   // console.log(searchArray)
   // Render search to the DOM
   renderSearch();
+  displayWeatherInfo()
 }
+
 
 function storeSearch() {
   // Stringify and set "search" key in localStorage to search array
@@ -146,60 +148,63 @@ $("#search-form").on("submit", function (event) {
 $(document).on("click", ".search", function searchClick() {
   $(".search-div").empty();
   $("#forecast").empty();
+  searchArray.push($(this).attr("data-name"))
+  renderSearch();
+  displayWeatherInfo();
  
-  var search = $(this).attr("data-name")
+  // var search = $(this).attr("data-name")
 
  
-  var queryURL =  "https://api.openweathermap.org/data/2.5/weather?q=" + search  + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
+  // var queryURL =  "https://api.openweathermap.org/data/2.5/weather?q=" + search  + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
 
 
-  // Creates AJAX call for the specific movie button being clicked
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(function(response) {
-   console.log(response)
-    // Creates a div to hold the movie
-    var newDiv = $("<div>")
-    newDiv.addClass("search-div")
-    newDiv.prependTo("#result-page")
+  // // Creates AJAX call for the specific movie button being clicked
+  // $.ajax({
+  //   url: queryURL,
+  //   method: "GET"
+  // }).then(function(response) {
+  //  console.log(response)
+  //   // Creates a div to hold the movie
+  //   var newDiv = $("<div>")
+  //   newDiv.addClass("search-div")
+  //   newDiv.prependTo("#result-page")
 
-    $("<h1>").addClass("current-city").text(response.name).appendTo(newDiv)
-    $("<h2>").text("Current Temp: " + Math.round(response.main.temp) + " \xB0 F").appendTo(newDiv)
+  //   $("<h1>").addClass("current-city").text(response.name).appendTo(newDiv)
+  //   $("<h2>").text("Current Temp: " + Math.round(response.main.temp) + " \xB0 F").appendTo(newDiv)
  
-    $("<p>").text("Humidity: " + response.main.humidity + "%").appendTo(newDiv)
+  //   $("<p>").text("Humidity: " + response.main.humidity + "%").appendTo(newDiv)
   
-    $("<p>").text("Wind: " + response.wind.speed + " MPH").appendTo(newDiv)
+  //   $("<p>").text("Wind: " + response.wind.speed + " MPH").appendTo(newDiv)
    
-    $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png").appendTo(".current-city")
+  //   $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png").appendTo(".current-city")
     
     
-  });
+  // });
 
-  var search = searchInput.val().trim()
-  var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + search + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
-  $.ajax({
-    url: queryURL,
-    method: "GET"
-  }).then(function(response) {
-   console.log(response)
+  // var search = searchInput.val().trim()
+  // var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + search + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
+  // $.ajax({
+  //   url: queryURL,
+  //   method: "GET"
+  // }).then(function(response) {
+  //  console.log(response)
 
   
-    console.log(response.list[0].dt_txt);
+  //   console.log(response.list[0].dt_txt);
 
-    randomArray= [3, 11, 19, 27, 35];
+  //   randomArray= [3, 11, 19, 27, 35];
 
-    for (var i = 0; i < randomArray.length; i++) {
-      console.log(i)
+  //   for (var i = 0; i < randomArray.length; i++) {
+  //     console.log(i)
      
-      $("<div>").addClass("col fiveday").attr('id', 'day' + i).html("<h6>" + (response.list[randomArray[i]].dt_txt) + "</h4>").appendTo("#forecast");
-      $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list[randomArray[i]].weather[0].icon + "@2x.png").appendTo("#day" + i )
-      $("<p>").text("Temp: " + Math.round(response.list[randomArray[i]].main.temp) + "\xB0  F").appendTo("#day" + i )
-      $("<p>").text("Humidity: " + response.list[randomArray[i]].main.humidity + "%").appendTo("#day" + i )
+  //     $("<div>").addClass("col fiveday").attr('id', 'day' + i).html("<h6>" + (response.list[randomArray[i]].dt_txt) + "</h4>").appendTo("#forecast");
+  //     $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list[randomArray[i]].weather[0].icon + "@2x.png").appendTo("#day" + i )
+  //     $("<p>").text("Temp: " + Math.round(response.list[randomArray[i]].main.temp) + "\xB0  F").appendTo("#day" + i )
+  //     $("<p>").text("Humidity: " + response.list[randomArray[i]].main.humidity + "%").appendTo("#day" + i )
       
       
       
-};
+});
 // // Create function for when city is clicked
 
 // $(document).on("click", ".search", searchClick())
@@ -209,4 +214,4 @@ $(document).on("click", ".search", function searchClick() {
 //   $("#forecast").empty();
 //   searchInput = $(this).attr("data-name");
 
-})});
+// })});
