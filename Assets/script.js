@@ -26,15 +26,49 @@ function displayWeatherInfo() {
     newDiv.prependTo("#result-page")
 
     $("<h1>").addClass("current-city").text(response.name).appendTo(newDiv)
-    $("<h2>").text("Current Temp: " + Math.round(response.main.temp) + " degrees").appendTo(newDiv)
+    $("<h2>").text("Current Temp: " + Math.round(response.main.temp) + " \xB0 F").appendTo(newDiv)
  
-    $("<p>").text("Humidity: " + response.main.humidity).appendTo(newDiv)
+    $("<p>").text("Humidity: " + response.main.humidity + "%").appendTo(newDiv)
   
-    $("<p>").text("Feels like: " + Math.round(response.main.feels_like) + " degrees").appendTo(newDiv)
+    $("<p>").text("Feels like: " + Math.round(response.main.feels_like) + " \xB0 F").appendTo(newDiv)
    
     $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png").appendTo(".current-city")
     
     
+  });
+
+  var search = searchInput.val().trim()
+  var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + search + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
+  $.ajax({
+    url: queryURL,
+    method: "GET"
+  }).then(function(response) {
+   console.log(response)
+
+  
+    console.log(response.list[0].dt_txt);
+
+    randomArray= [3, 11, 19, 27, 35];
+
+    for (var i = 0; i < randomArray.length; i++) {
+      console.log(i)
+     
+      $("<div>").addClass("col fiveday").attr('id', 'day' + i).html("<h6>" + (response.list[randomArray[i]].dt_txt) + "</h4>").appendTo("#forecast");
+      $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list[randomArray[i]].weather[0].icon + "@2x.png").appendTo("#day" + i )
+      $("<p>").text("Temp: " + Math.round(response.list[randomArray[i]].main.temp) + "\xB0  F").appendTo("#day" + i )
+      $("<p>").text("Humidity: " + response.list[randomArray[i]].main.humidity + "%").appendTo("#day" + i )
+      
+      
+      
+    }
+
+    
+    // $("<div>").addClass("col").text(response.list[1].dt_txt).appendTo("#forecast");
+    // $("<div>").addClass("col").text(response.list[2].dt_txt).appendTo("#forecast");
+    // $("<div>").addClass("col").text(response.list[3].dt_txt).appendTo("#forecast");
+    // $("<div>").addClass("col").text(response.list[4].dt_txt).appendTo("#forecast");
+    // $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list.weather[0].icon + "@2x.png").appendTo(".current-city")
+
   });
 
 }
@@ -94,6 +128,7 @@ function storeSearch() {
 $("#search-form").on("submit", function (event) {
   event.preventDefault();
   $(".search-div").empty();
+  $("#forecast").empty();
 
   var searchText = searchInput.val().trim();
   // console.log(searchText);

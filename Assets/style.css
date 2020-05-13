@@ -2,3 +2,19 @@ header {
     background-color: #1E90FF;
     color: white;
 }
+
+.fiveday {
+    background-color: lightseagreen;
+    margin: 5px;
+    padding: 5px;
+    font-size: small;
+}
+
+h6 {
+    text-align: center;
+    color: white;
+}
+
+img {
+    width: 50px;
+}
