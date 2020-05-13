@@ -149,6 +149,7 @@ $(document).on("click", ".search", function searchClick() {
   $(".search-div").empty();
   $("#forecast").empty();
   searchArray.push($(this).attr("data-name"))
+  localStorage.setItem("search", JSON.stringify(searchArray))
   renderSearch();
   displayWeatherInfo();
  
