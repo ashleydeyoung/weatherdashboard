@@ -7,6 +7,8 @@ var searchArray = [];
 init();
 
 function displayWeatherInfo() {
+  var lat = 0
+  var lon = 0
 
   var search = searchArray[searchArray.length -1]
 
@@ -33,9 +35,22 @@ function displayWeatherInfo() {
     $("<p>").text("Wind: " + response.wind.speed + " MPH").appendTo(newDiv)
    
     $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.weather[0].icon + "@2x.png").appendTo(".current-city")
-    
+
+   lat = response.coord.lat;
+   lon = response.coord.lon;
+
+   var queryURL = "https://api.openweathermap.org/data/2.5/uvi?appid=a433785d6c40d7591842a50a08b4a776&lat=" + lat + "&lon=" +lon
+   $.ajax({
+     url: queryURL,
+     method: "GET"
+   }).then(function(response) {
+    console.log(response)
+    $("<p>").text("UV Index: " + response.value ).appendTo(newDiv)
+   })
     
   });
+
+  
 
   var search = searchArray[searchArray.length -1]
   var queryURL = "https://api.openweathermap.org/data/2.5/forecast?q=" + search + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
