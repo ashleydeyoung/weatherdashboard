@@ -13,7 +13,7 @@ function displayWeatherInfo() {
 
   var search = searchArray[searchArray.length -1]
 
-  console.log(search)
+  
   var queryURL =  "https://api.openweathermap.org/data/2.5/weather?q=" + search  + "&units=imperial&appid=a433785d6c40d7591842a50a08b4a776"
 
 
@@ -22,7 +22,7 @@ function displayWeatherInfo() {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-   console.log(response)
+   
     // Creates a div to hold the current weather
     var newDiv = $("<div>")
     newDiv.addClass("search-div")
@@ -43,7 +43,9 @@ function displayWeatherInfo() {
      url: queryURL,
      method: "GET"
    }).then(function(response) {
-    console.log(JSON.parse(response.value))
+     var date = response.date_iso
+     var res = date.slice(0,10)
+    $("<h3>").text("Today's Date: " + res).prependTo(newDiv)
     $("<p>").addClass("uv-index").text("UV Index: ").appendTo(newDiv)
     $("<button>").addClass("uv-button").appendTo((".uv-index"))
     //color change based on uv index value
@@ -71,17 +73,13 @@ function displayWeatherInfo() {
     url: queryURL,
     method: "GET"
   }).then(function(response) {
-   console.log(response)
-
-  
-    console.log(response.list[0].dt_txt);
-
+   
+    //index for each day at 12:00, put into array
     randomArray= [3, 11, 19, 27, 35];
 
     for (var i = 0; i < randomArray.length; i++) {
-      console.log(i)
-     
-      $("<div>").addClass("col fiveday").attr('id', 'day' + i).html("<h6>" + (response.list[randomArray[i]].dt_txt) + "</h4>").appendTo("#forecast");
+      //dynamically displaying 5day forecast
+      $("<div>").addClass("col fiveday").attr('id', 'day' + i).html("<h6>" + (response.list[randomArray[i]].dt_txt).slice(0,10) + "</h4>").appendTo("#forecast");
       $("<img>").attr("src", "http://openweathermap.org/img/wn/" + response.list[randomArray[i]].weather[0].icon + "@2x.png").appendTo("#day" + i )
       $("<p>").text("Temp: " + Math.round(response.list[randomArray[i]].main.temp) + "\xB0  F").appendTo("#day" + i )
       $("<p>").text("Humidity: " + response.list[randomArray[i]].main.humidity + "%").appendTo("#day" + i )
@@ -90,7 +88,7 @@ function displayWeatherInfo() {
   });
 
 }
-
+// function creating search history
 function renderSearch() {
   // Clear List element 
   searchList.empty();
